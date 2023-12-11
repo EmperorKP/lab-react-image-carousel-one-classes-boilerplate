@@ -7,7 +7,54 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 // implement the class below
 class Carousel extends Component {
-  
+  constructor(){
+    super();
+    //inorder to set stae cause react cannot identify the variable
+    this.state = {
+        currIndex:0
+    }
+
+  }
+ 
+  incCount = ()=> {
+    console.log("increase count");
+    if(this.state.currIndex >= images.length-1){
+        this.setState({
+            currIndex : 0,
+        })
+      }else{
+        this.setState({
+            currIndex : this.state.currIndex+1
+        })
+      }
+ 
+  }
+  decCount = () =>{
+    if(this.state.currIndex == 0){
+      this.setState({
+        currIndex: images.length-1
+    })
+    }else{
+       this.setState({currIndex: this.state.currIndex-1})
+      }
+   
+  }
+  render(){
+    return <>
+      <h1>Carousel</h1>
+      <div className="carousel-container flex">
+        <div className="leftArrow arrowDiv flex" onClick={this.decCount}>
+            <ArrowBackIosIcon />
+        </div>
+        <h2 className="title">{images[this.state.currIndex].title}</h2>
+        <img src={images[this.state.currIndex].img} alt="" />
+        <h2 className="caption">{images[this.state.currIndex].subtitle}</h2>
+        <div className="rightArrow arrowDiv flex" onClick={this.incCount}>
+            <ArrowForwardIosIcon />
+        </div>                  
+      </div>
+    </>
+  }
 }
 
 export default Carousel;
